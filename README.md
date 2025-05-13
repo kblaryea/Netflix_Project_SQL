@@ -95,26 +95,38 @@ Order by total_content desc
 limit 10;
 ```
 
+![](https://github.com/kblaryea/Netflix_Project_SQL/blob/main/Top_10_countries.png)
+
+#### Remarks: 
+United States has the highest content total with 3,690 items. India follows with 1,046, and the United Kingdom comes third with 806. Other notable countries include Canada (445), France (393), and Japan (318). The data shows a wide global distribution, but content is heavily concentrated in a few top countries.
+
 **Objective:** Identify the top 5 countries with the highest number of content items.
 
 ### 5. Identify the Longest Movie
+**Objective:** Find the movie with the longest duration.
 
 ```sql
-SELECT 
-    *
-FROM netflix
-WHERE type = 'Movie'
-ORDER BY SPLIT_PART(duration, ' ', 1)::INT DESC;
+select title,  
+	substring(duration, 1,position ('m' in duration)-1)::int as duration
+from Netflix
+where type = 'Movie' and duration is not null
+order by duration desc
+limit 1;
 ```
 
-**Objective:** Find the movie with the longest duration.
+#### Remarks: 
+The longest movie is Black Mirroe: Bandersnatch, which has a duration of 312 minutes
+
 
 ### 6. Find Content Added in the Last 5 Years
 
 ```sql
-SELECT *
-FROM netflix
-WHERE TO_DATE(date_added, 'Month DD, YYYY') >= CURRENT_DATE - INTERVAL '5 years';
+Select 
+	*,
+	TO_DATE(date_added, 'Month DD, YYYY')
+From netflix
+Where TO_DATE(date_added, 'Month DD, YYYY') >= CURRENT_DATE - INTERVAL '5 years';
+
 ```
 
 **Objective:** Retrieve content added to Netflix in the last 5 years.
@@ -122,14 +134,21 @@ WHERE TO_DATE(date_added, 'Month DD, YYYY') >= CURRENT_DATE - INTERVAL '5 years'
 ### 7. Find All Movies/TV Shows by Director 'Rajiv Chilaka'
 
 ```sql
-SELECT *
-FROM (
-    SELECT 
-        *,
-        UNNEST(STRING_TO_ARRAY(director, ',')) AS director_name
-    FROM netflix
-) AS t
-WHERE director_name = 'Rajiv Chilaka';
+Select *
+From
+(
+Select 
+	*,
+	trim(unnest(string_to_array(director, ','))) as director_name
+from netflix) as t1
+where director_name = 'Rajiv Chilaka'
+
+--Alternative
+
+Select *
+From netflix
+Where director ilike '%Rajiv Chilaka%'
+
 ```
 
 **Objective:** List all content directed by 'Rajiv Chilaka'.
@@ -148,11 +167,31 @@ WHERE type = 'TV Show'
 ### 9. Count the Number of Content Items in Each Genre
 
 ```sql
-SELECT 
-    UNNEST(STRING_TO_ARRAY(listed_in, ',')) AS genre,
-    COUNT(*) AS total_content
-FROM netflix
-GROUP BY 1;
+Select *
+From netflix
+Where director ilike '%Rajiv Chilaka%'
+
+--8. List all TV shows with more than 5 seasons
+Select t1.*
+From
+(
+Select *,
+	substring(duration, 1, position('S' in duration)-1)::int as duration1
+From netflix
+Where duration ilike '%Season%'
+) as t1
+
+Where t1.duration1 > 5;
+
+--Alternatively
+
+Select
+	*, 
+	Split_Part(duration, ' ', 1)::numeric as seasons
+From netflix
+Where 
+	type = 'TV Show' and
+	Split_Part(duration, ' ', 1)::numeric > 5;
 ```
 
 **Objective:** Count the number of content items in each genre.
