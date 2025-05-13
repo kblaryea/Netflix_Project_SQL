@@ -200,6 +200,7 @@ Order by number_of_content desc;
 
 ### 10.Find each year and the average numbers of content release in India on netflix. 
 return top 5 year with highest avg content release!
+**Objective:** Calculate and rank years by the average number of content releases by India.
 
 ```sql
 Select 
@@ -212,7 +213,10 @@ group by year;
 
 ```
 
-**Objective:** Calculate and rank years by the average number of content releases by India.
+![](https://github.com/kblaryea/Netflix_Project_SQL/blob/main/share_of_content.png)
+
+#### Remarks:
+The year 2018 saw the peak in content production, with 349 pieces released—representing 35.91% of the total—indicating a significant surge compared to other years, especially when contrasted with just 13 releases (1.34%) in 2016.
 
 ### 11. List All Movies that are Documentaries
 
@@ -296,6 +300,22 @@ Group by judgement;
 - **Geographical Insights:** The top countries and the average content releases by India highlight regional content distribution.
 - **Content Categorization:** Categorizing content based on specific keywords helps in understanding the nature of content available on Netflix.
 
-This analysis provides a comprehensive view of Netflix's content and can help inform content strategy and decision-making.
 
+1. **Content Distribution**: Netflix offers a diverse library with a significant number of Movies and TV Shows. Movies dominate the platform in terms of total content.
+   
+2. **Ratings and Popularity**:The most common ratings for Movies and TV Shows were identified, helping understand content preferences for different audience groups.
+   
+3. **Genre Insights**:The most popular genres were identified, with Documentaries and other specific genres standing out in terms of content volume.
+
+4. **Actors and Directors**: Top actors and directors were identified based on their contributions to Netflix's library.
+For example, Salman Khan appeared in several movies in the last 5 years, and Rajiv Chilaka directed notable content.
+
+5. **Content Categorization**: Content was categorized as "Good" or "Bad" based on the presence of keywords like "kill" and "violence" in the description. This helps assess the nature of content on the platform.
+
+6. **TV Shows with Multiple Seasons**:TV Shows with more than 5 seasons were identified, highlighting long-running series that contribute to user retention.
+
+7. **Longest Movie**: The longest movie on Netflix was identified, providing insights into content length preferences.
+
+### Conclusion
+This project successfully analyzed Netflix's content library, providing valuable insights into content trends, audience preferences, and platform strategies. The findings can help Netflix optimize its content acquisition, marketing, and user engagement strategies. By leveraging SQL queries, the project demonstrates the power of data analysis in driving business decisions.
 
