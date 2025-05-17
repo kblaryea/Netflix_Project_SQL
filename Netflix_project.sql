@@ -1,4 +1,4 @@
-```sql
+
 -- Netflix Project
 
 Drop Table if exists netflix;
@@ -207,5 +207,4 @@ From netflix
 )t1
 Group by judgement;
 
-```
 	
